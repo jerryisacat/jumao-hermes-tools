@@ -1,0 +1,33 @@
+# macOS
+.DS_Store
+
+# Logs
+*.log
+logs/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.token
+secrets/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Node
+node_modules/
+dist/
+build/
+.cache/
+
+# Hermes local state
+.hermes/
+sessions/
+auth.json
+config.yaml
