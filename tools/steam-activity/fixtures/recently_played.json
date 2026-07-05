@@ -1,0 +1,31 @@
+{
+  "response": {
+    "total_count": 4,
+    "games": [
+      {
+        "appid": 1086940,
+        "name": "Baldur's Gate 3",
+        "playtime_2weeks": 480,
+        "playtime_forever": 12180
+      },
+      {
+        "appid": 413150,
+        "name": "Stardew Valley",
+        "playtime_2weeks": 210,
+        "playtime_forever": 8420
+      },
+      {
+        "appid": 367520,
+        "name": "Hollow Knight",
+        "playtime_2weeks": 95,
+        "playtime_forever": 3180
+      },
+      {
+        "appid": 250900,
+        "name": "The Binding of Isaac: Rebirth",
+        "playtime_2weeks": 35,
+        "playtime_forever": 6400
+      }
+    ]
+  }
+}

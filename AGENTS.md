@@ -21,15 +21,20 @@ tools/
   <tool-name>/
     README.md
     ...tool files...
+skills/
+  <skill-name>/
+    SKILL.md
 ```
 
 Rules:
 
 - Every tool or script must live in its own folder under `tools/`.
+- Every reusable agent instruction must live in its own folder under `skills/` and include `SKILL.md`.
 - Do not add new top-level folders such as `scripts/`, `examples/`, or `docs/` unless the user explicitly approves a repo-wide need.
 - Put tool-specific examples, docs, tests, and helper scripts inside that tool's folder.
 - Use lowercase kebab-case folder names, for example `tools/profile-auditor/`.
 - A tool folder must contain `README.md` before the tool can be marked `usable` in the top-level README.
+- When a tool is meant to be called by Hermes or another coding agent, add a matching skill folder such as `skills/<tool-name>/`.
 
 ## Top-level README policy
 
@@ -45,6 +50,7 @@ It should contain:
 
 - Short repo purpose.
 - Tool index table.
+- Skill index table.
 - Status label definitions.
 - Minimal repo rules.
 - Links to the other language versions.
@@ -59,7 +65,9 @@ It should not contain:
 
 Detailed documentation belongs in `tools/<tool-name>/README.md`.
 
-When the tool index, status labels, or repository rules change, update all three README files in the same working-tree change. Do not leave one language stale unless the user explicitly asks for a partial draft.
+Keep the tool index and skill index separate. The tool index points to executable utilities under `tools/`; the skill index points to agent-facing instructions under `skills/`.
+
+When the tool index, skill index, status labels, or repository rules change, update all three README files in the same working-tree change. Do not leave one language stale unless the user explicitly asks for a partial draft.
 
 ## Tool README requirements
 
@@ -73,6 +81,21 @@ Each tool's `README.md` should include:
 - Verification: commands used to confirm it works.
 - Rollback: how to undo changes made by the tool.
 - Safety notes: especially if it touches `~/.hermes/`, profiles, skills, plugins, cron jobs, memory, or auth state.
+
+## Skill requirements
+
+Each skill folder must contain `SKILL.md` with Hermes-compatible frontmatter and clear operational guidance.
+
+Each `SKILL.md` should include:
+
+- When to use the skill.
+- Which tool or files it operates through.
+- Required environment variables or local setup.
+- Exact commands for normal use and JSON/automation use.
+- Failure handling and privacy notes.
+- Verification commands when relevant.
+
+Skills must not contain secrets or machine-specific paths unless clearly marked as examples. Prefer an environment variable such as `JUMAO_HERMES_TOOLS_HOME` over hardcoded local paths.
 
 ## Status lifecycle
 
@@ -101,9 +124,11 @@ When adding a new tool:
 1. Create `tools/<tool-name>/`.
 2. Add the tool implementation and its local `README.md`.
 3. Add or update local examples/tests inside the same folder when useful.
-4. Add one row to the tool index in `README.md`, `README.en.md`, and `README.ja.md`.
-5. Keep the status `wip` until verification passes.
-6. After verification passes, update status to `usable` only if the tool is genuinely ready.
+4. If the tool is meant for agent use, create `skills/<tool-name>/SKILL.md`.
+5. Add one row to the tool index in `README.md`, `README.en.md`, and `README.ja.md`.
+6. If a skill was added, add one row to the skill index in all three README files.
+7. Keep the status `wip` until verification passes.
+8. After verification passes, update status to `usable` only if the tool is genuinely ready.
 
 When editing an existing tool:
 
@@ -119,6 +144,7 @@ When maintaining multilingual README files:
 
 - Keep section order the same across `README.md`, `README.en.md`, and `README.ja.md`.
 - Keep tool rows aligned across languages: same tool name, same status, same ordering.
+- Keep skill rows aligned across languages: same skill name, same status, same ordering.
 - Translate purpose text naturally, but do not add extra claims in only one language.
 - Keep status label values exactly as `idea`, `wip`, `usable`, and `deprecated` in every language.
 - Keep links between language versions working.

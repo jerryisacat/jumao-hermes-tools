@@ -1,0 +1,17 @@
+{
+  "response": {
+    "players": [
+      {
+        "steamid": "76561198000000001",
+        "communityvisibilitystate": 3,
+        "profilestate": 1,
+        "personaname": "FixtureJumao",
+        "profileurl": "https://steamcommunity.com/id/fixture-jumao/",
+        "avatar": "https://example.invalid/avatar.jpg",
+        "personastate": 1,
+        "gameextrainfo": "Stardew Valley",
+        "gameid": "413150"
+      }
+    ]
+  }
+}

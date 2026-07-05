@@ -1,0 +1,43 @@
+{
+  "response": {
+    "game_count": 6,
+    "games": [
+      {
+        "appid": 413150,
+        "name": "Stardew Valley",
+        "playtime_forever": 8420,
+        "playtime_2weeks": 210
+      },
+      {
+        "appid": 1086940,
+        "name": "Baldur's Gate 3",
+        "playtime_forever": 12180,
+        "playtime_2weeks": 480
+      },
+      {
+        "appid": 730,
+        "name": "Counter-Strike 2",
+        "playtime_forever": 30500,
+        "playtime_2weeks": 0
+      },
+      {
+        "appid": 250900,
+        "name": "The Binding of Isaac: Rebirth",
+        "playtime_forever": 6400,
+        "playtime_2weeks": 35
+      },
+      {
+        "appid": 1245620,
+        "name": "ELDEN RING",
+        "playtime_forever": 9720,
+        "playtime_2weeks": 0
+      },
+      {
+        "appid": 367520,
+        "name": "Hollow Knight",
+        "playtime_forever": 3180,
+        "playtime_2weeks": 95
+      }
+    ]
+  }
+}
