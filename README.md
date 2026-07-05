@@ -10,12 +10,14 @@
 
 | 工具 | 状态 | 用途 |
 |------|------|------|
+| [aria2-download](tools/aria2-download/) | `usable` | 用 aria2 安全下载大文件、多文件和断点续传任务。 |
 | [steam-activity](tools/steam-activity/) | `usable` | 读取 Steam 游戏库、最近游玩和当前正在玩的游戏。 |
 
 ## 技能索引
 
 | 技能 | 状态 | 用途 |
 |------|------|------|
+| [aria2-download](skills/aria2-download/) | `usable` | 当用户需要大文件、批量下载或断点续传时，指导 Agent 使用本地 aria2 wrapper 并完成校验。 |
 | [steam-activity](skills/steam-activity/) | `usable` | 当用户询问 Steam 当前状态、最近游玩、游戏库或时长排行时，规范使用本地工具查询并解读结果。 |
 
 ## 状态说明

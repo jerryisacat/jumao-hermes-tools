@@ -10,12 +10,14 @@ This repository is intentionally lightweight: each tool or script lives in its o
 
 | Tool | Status | Purpose |
 |------|--------|---------|
+| [aria2-download](tools/aria2-download/) | `usable` | Safely downloads large files, URL batches, and resumable transfers with aria2. |
 | [steam-activity](tools/steam-activity/) | `usable` | Reads Steam library, recently played games, and the currently played game. |
 
 ## Skill index
 
 | Skill | Status | Purpose |
 |-------|--------|---------|
+| [aria2-download](skills/aria2-download/) | `usable` | Guides agents to use the local aria2 wrapper for large, batched, or resumable downloads with verification. |
 | [steam-activity](skills/steam-activity/) | `usable` | Guides agents to query and interpret Steam current status, recent activity, library, and playtime rankings. |
 
 ## Status labels

@@ -10,12 +10,14 @@
 
 | ツール | 状態 | 用途 |
 |--------|------|------|
+| [aria2-download](tools/aria2-download/) | `usable` | aria2 を使って大容量ファイル、URL 一括、再開可能なダウンロードを安全に実行します。 |
 | [steam-activity](tools/steam-activity/) | `usable` | Steam ライブラリ、最近プレイしたゲーム、現在プレイ中のゲームを読み取ります。 |
 
 ## スキル索引
 
 | スキル | 状態 | 用途 |
 |--------|------|------|
+| [aria2-download](skills/aria2-download/) | `usable` | 大容量・一括・再開可能なダウンロード時に、Agent がローカル aria2 wrapper を使い検証まで行うための手順です。 |
 | [steam-activity](skills/steam-activity/) | `usable` | Steam の現在状態、最近のプレイ、ライブラリ、プレイ時間ランキングを照会して解釈するための Agent 手順です。 |
 
 ## 状態ラベル
