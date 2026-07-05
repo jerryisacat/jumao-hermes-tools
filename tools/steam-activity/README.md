@@ -14,9 +14,9 @@
 
 ## 状态
 
-`wip`
+`usable`
 
-原因：目前已通过本地 fixture 验证；如果没有真实 `STEAM_API_KEY` 与目标账号公开隐私设置，就无法确认 live Steam API 路径在实际账号上可用。
+原因：已通过本地 fixture 验证，并使用真实 `STEAM_API_KEY` 与公开 SteamID64 完成 live Steam API 验证。
 
 ## 依赖
 

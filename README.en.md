@@ -10,13 +10,13 @@ This repository is intentionally lightweight: each tool or script lives in its o
 
 | Tool | Status | Purpose |
 |------|--------|---------|
-| [steam-activity](tools/steam-activity/) | `wip` | Reads Steam library, recently played games, and the currently played game. |
+| [steam-activity](tools/steam-activity/) | `usable` | Reads Steam library, recently played games, and the currently played game. |
 
 ## Skill index
 
 | Skill | Status | Purpose |
 |-------|--------|---------|
-| [steam-activity](skills/steam-activity/) | `wip` | Instructs agents when and how to call the steam-activity tool. |
+| [steam-activity](skills/steam-activity/) | `usable` | Guides agents to query and interpret Steam current status, recent activity, library, and playtime rankings. |
 
 ## Status labels
 

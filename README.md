@@ -10,13 +10,13 @@
 
 | 工具 | 状态 | 用途 |
 |------|------|------|
-| [steam-activity](tools/steam-activity/) | `wip` | 读取 Steam 游戏库、最近游玩和当前正在玩的游戏。 |
+| [steam-activity](tools/steam-activity/) | `usable` | 读取 Steam 游戏库、最近游玩和当前正在玩的游戏。 |
 
 ## 技能索引
 
 | 技能 | 状态 | 用途 |
 |------|------|------|
-| [steam-activity](skills/steam-activity/) | `wip` | 指示 Agent 何时以及如何调用 steam-activity 工具。 |
+| [steam-activity](skills/steam-activity/) | `usable` | 当用户询问 Steam 当前状态、最近游玩、游戏库或时长排行时，规范使用本地工具查询并解读结果。 |
 
 ## 状态说明
 

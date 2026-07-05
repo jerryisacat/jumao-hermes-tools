@@ -10,13 +10,13 @@
 
 | ツール | 状態 | 用途 |
 |--------|------|------|
-| [steam-activity](tools/steam-activity/) | `wip` | Steam ライブラリ、最近プレイしたゲーム、現在プレイ中のゲームを読み取ります。 |
+| [steam-activity](tools/steam-activity/) | `usable` | Steam ライブラリ、最近プレイしたゲーム、現在プレイ中のゲームを読み取ります。 |
 
 ## スキル索引
 
 | スキル | 状態 | 用途 |
 |--------|------|------|
-| [steam-activity](skills/steam-activity/) | `wip` | Agent に steam-activity ツールをいつ、どのように呼び出すかを指示します。 |
+| [steam-activity](skills/steam-activity/) | `usable` | Steam の現在状態、最近のプレイ、ライブラリ、プレイ時間ランキングを照会して解釈するための Agent 手順です。 |
 
 ## 状態ラベル
 

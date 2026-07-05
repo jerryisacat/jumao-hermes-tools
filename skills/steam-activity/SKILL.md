@@ -132,4 +132,4 @@ Live verification additionally requires:
 STEAM_API_KEY=... STEAM_ID64=... python3 tools/steam-activity/steam_activity.py summary --json
 ```
 
-Keep the tool status `wip` until live verification succeeds or the user explicitly accepts fixture-only verification.
+Mark the tool `usable` only after live verification succeeds or the user explicitly accepts fixture-only verification.
