@@ -1,0 +1,37 @@
+# Jumao Hermes Tools
+
+[中文](README.md) | [日本語](README.ja.md)
+
+This is a public personal toolbox for small tools and scripts created through Vibe Coding while using Hermes Agent in real workflows.
+
+This repository is intentionally lightweight: each tool or script lives in its own folder under `tools/`, and the top-level README only indexes those folders. Detailed usage, dependencies, test steps, side effects, and rollback notes belong in each tool folder's own README.
+
+## Tool index
+
+| Tool | Status | Purpose |
+|------|--------|---------|
+| _No tools yet_ | - | New tools should be added under `tools/<tool-name>/` and indexed here. |
+
+## Status labels
+
+| Status | Meaning |
+|--------|---------|
+| `idea` | Captured idea or rough direction. Not implemented and not expected to run. |
+| `wip` | Work in progress. May be incomplete, unstable, or untested. |
+| `usable` | Implemented, tested, and confirmed usable for its documented purpose. |
+| `deprecated` | Kept for reference, but no longer recommended for new use. |
+
+## Repository rules
+
+- One tool or script equals one standalone folder under `tools/`.
+- The top-level README is an index only; do not turn it into detailed documentation for specific tools.
+- Each tool folder must contain its own `README.md` before it can be marked `usable` in the index.
+- The default README is Chinese; English and Japanese versions must be kept in sync with it.
+- Keep Git history clean: commit and push only after a tool has been tested and confirmed usable.
+- Do not commit secrets, tokens, local Hermes state, private config, sessions, or auth files.
+
+Agent maintenance rules are in `AGENTS.md`.
+
+## License
+
+MIT

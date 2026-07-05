@@ -1,40 +1,36 @@
-# Jumao Hermes Tools
+# 橘猫的 Hermes 工具箱
 
-Personal public toolbox for Hermes Agent utilities maintained by jerryisacat.
+[English](README.en.md) | [日本語](README.ja.md)
 
-This repository collects small scripts, helper tools, examples, and notes used to customize or operate Hermes Agent in a repeatable way.
+这是一个公开的个人工具箱，用来收集我在使用 Hermes Agent 的真实流程中，通过 Vibe Coding 做出来的小工具和脚本。
 
-## Repository layout
+这个仓库刻意保持轻量：每个工具或脚本都放在 `tools/` 下的独立文件夹里；顶层 README 只负责索引这些文件夹。具体用法、依赖、测试方式、副作用和回滚说明，都应该写在对应工具文件夹自己的 README 里。
 
-```text
-scripts/   Runnable helper scripts.
-tools/     Reusable utility modules or small CLIs.
-docs/      Notes, setup guides, and design records.
-examples/  Example configs, prompts, or usage snippets.
-```
+## 工具索引
 
-## Conventions
+| 工具 | 状态 | 用途 |
+|------|------|------|
+| _暂无工具_ | - | 新工具应放在 `tools/<tool-name>/` 下，并在这里添加索引。 |
 
-- Keep tools small, inspectable, and easy to run locally.
-- Document each tool with purpose, dependencies, usage, and side effects.
-- Do not commit secrets, tokens, private config files, session logs, or machine-specific credentials.
-- Prefer explicit installation instructions over hidden global mutations.
-- If a tool modifies Hermes config, skills, plugins, cron jobs, or memory, document the exact paths and rollback steps.
+## 状态说明
 
-## Hermes references
+| 状态 | 含义 |
+|------|------|
+| `idea` | 只是想法或方向记录，尚未实现，不预期可运行。 |
+| `wip` | 开发中，可能不完整、不稳定或尚未测试。 |
+| `usable` | 已实现、已测试，并确认能完成文档中描述的用途。 |
+| `deprecated` | 保留作为参考，但不建议继续使用。 |
 
-Common local Hermes paths:
+## 仓库规则
 
-```text
-~/.hermes/config.yaml
-~/.hermes/.env
-~/.hermes/skills/
-~/.hermes/plugins/
-~/.hermes/cron/
-~/.hermes/logs/
-```
+- 一个工具或脚本对应 `tools/` 下的一个独立文件夹。
+- 顶层 README 只做索引，不承载具体工具的详细文档。
+- 每个工具文件夹必须有自己的 `README.md`，才能在索引中标记为 `usable`。
+- 默认 README 是中文；英文和日语版本需要与中文版本同步维护。
+- 保持 Git 记录干净：只有工具完成测试并确认可用后，才进行 commit 和 push。
+- 不要提交 secrets、token、本地 Hermes 状态、私有配置、session 或 auth 文件。
 
-Hermes documentation: https://hermes-agent.nousresearch.com/docs
+Agent 维护规则见 `AGENTS.md`。
 
 ## License
 
