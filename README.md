@@ -4,7 +4,7 @@
 
 这是一个公开的个人工具箱，用来收集我在使用 Hermes Agent 的真实流程中，通过 Vibe Coding 做出来的小工具、脚本和配套技能。
 
-这个仓库刻意保持轻量：每个工具或脚本都放在 `tools/` 下的独立文件夹里；每个可复用的 Agent 调用说明放在 `skills/` 下的独立文件夹里。顶层 README 只负责索引这些文件夹。具体用法、依赖、测试方式、副作用和回滚说明，都应该写在对应工具或技能文件夹自己的文档里。
+这个仓库刻意保持轻量：每个工具或脚本都放在 `tools/` 下的独立文件夹里；每个可复用的 Agent 调用说明放在 `skills/` 下的独立文件夹里；给人阅读和复用的工作流、提示词和检查清单放在 `playbooks/` 下。顶层 README 只负责索引这些文件夹。具体用法、依赖、测试方式、副作用和回滚说明，都应该写在对应文件夹自己的文档里。
 
 ## 工具索引
 
@@ -20,6 +20,12 @@
 | [aria2-download](skills/aria2-download/) | `usable` | 当用户需要大文件、批量下载或断点续传时，指导 Agent 使用本地 aria2 wrapper 并完成校验。 |
 | [steam-activity](skills/steam-activity/) | `usable` | 当用户询问 Steam 当前状态、最近游玩、游戏库或时长排行时，规范使用本地工具查询并解读结果。 |
 
+## 使用手册索引
+
+| 条目 | 类型 | 用途 |
+|------|------|------|
+| [初始化 AGENTS.md 草案](playbooks/prompts/initialize-agents-md.md) | `prompt` | 引导 Agent 先调研当前仓库，再讨论 `AGENTS.md`、`AGENTS_CHANGELOGS.md` 和 `CODEGUIDE.md` 初始化方案。 |
+
 ## 状态说明
 
 | 状态 | 含义 |
@@ -33,10 +39,12 @@
 
 - 一个工具或脚本对应 `tools/` 下的一个独立文件夹。
 - 一个可复用的 Agent 调用说明对应 `skills/` 下的一个独立文件夹。
+- 一个给人阅读和复用的工作流、提示词或检查清单对应 `playbooks/` 下的一个 Markdown 文件。
 - 顶层 README 只做索引，不承载具体工具或技能的详细文档。
-- 工具索引和技能索引分开维护。
+- 工具索引、技能索引和使用手册索引分开维护。
 - 每个工具文件夹必须有自己的 `README.md`，才能在索引中标记为 `usable`。
 - 每个技能文件夹必须有自己的 `SKILL.md`。
+- `playbooks/README.md` 维护人类可读的使用手册目录和治理规则。
 - 默认 README 是中文；英文和日语版本需要与中文版本同步维护。
 - 保持 Git 记录干净：只有工具完成测试并确认可用后，才进行 commit 和 push。
 - 不要提交 secrets、token、本地 Hermes 状态、私有配置、session 或 auth 文件。

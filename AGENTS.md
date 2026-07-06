@@ -17,6 +17,14 @@ README.md
 AGENTS.md
 LICENSE
 .gitignore
+playbooks/
+  README.md
+  prompts/
+    <prompt-name>.md
+  workflows/
+    <workflow-name>.md
+  checklists/
+    <checklist-name>.md
 tools/
   <tool-name>/
     README.md
@@ -30,11 +38,13 @@ Rules:
 
 - Every tool or script must live in its own folder under `tools/`.
 - Every reusable agent instruction must live in its own folder under `skills/` and include `SKILL.md`.
+- Human-facing workflows, prompt templates, and checklists must live under `playbooks/`.
 - Do not add new top-level folders such as `scripts/`, `examples/`, or `docs/` unless the user explicitly approves a repo-wide need.
 - Put tool-specific examples, docs, tests, and helper scripts inside that tool's folder.
 - Use lowercase kebab-case folder names, for example `tools/profile-auditor/`.
 - A tool folder must contain `README.md` before the tool can be marked `usable` in the top-level README.
 - When a tool is meant to be called by Hermes or another coding agent, add a matching skill folder such as `skills/<tool-name>/`.
+- A playbook entry must be a Markdown file written for humans, not an agent instruction file. Use `playbooks/prompts/`, `playbooks/workflows/`, or `playbooks/checklists/` based on its primary use.
 
 ## Top-level README policy
 
@@ -51,6 +61,7 @@ It should contain:
 - Short repo purpose.
 - Tool index table.
 - Skill index table.
+- Playbook index table.
 - Status label definitions.
 - Minimal repo rules.
 - Links to the other language versions.
@@ -60,14 +71,16 @@ It should not contain:
 - Detailed installation docs for a specific tool.
 - Long implementation notes.
 - Test logs.
-- Troubleshooting for a specific tool.
+- Troubleshooting for a specific tool or playbook.
 - Large code blocks.
 
-Detailed documentation belongs in `tools/<tool-name>/README.md`.
+Detailed tool documentation belongs in `tools/<tool-name>/README.md`. Detailed human-facing playbook content belongs in the matching Markdown file under `playbooks/`.
 
 Keep the tool index and skill index separate. The tool index points to executable utilities under `tools/`; the skill index points to agent-facing instructions under `skills/`.
 
-When the tool index, skill index, status labels, or repository rules change, update all three README files in the same working-tree change. Do not leave one language stale unless the user explicitly asks for a partial draft.
+Keep the playbook index separate from both. The playbook index points to human-facing reusable prompts, workflows, and checklists under `playbooks/`.
+
+When the tool index, skill index, playbook index, status labels, or repository rules change, update all three README files in the same working-tree change. Do not leave one language stale unless the user explicitly asks for a partial draft.
 
 ## Tool README requirements
 
@@ -96,6 +109,28 @@ Each `SKILL.md` should include:
 - Verification commands when relevant.
 
 Skills must not contain secrets or machine-specific paths unless clearly marked as examples. Prefer an environment variable such as `JUMAO_HERMES_TOOLS_HOME` over hardcoded local paths.
+
+## Playbook requirements
+
+Playbooks are for people to read and reuse. They are not Hermes-compatible skills and should not include skill frontmatter.
+
+Each playbook entry should include:
+
+- Type: `prompt`, `workflow`, or `checklist`.
+- Purpose: what situation it helps with.
+- How to use it.
+- The reusable content itself, usually as a Markdown or plain-text block.
+- Safety notes, especially around secrets, local paths, production systems, or irreversible actions.
+
+Rules:
+
+- Keep one reusable idea per Markdown file.
+- Store prompt templates in `playbooks/prompts/`.
+- Store step-by-step human workflows in `playbooks/workflows/`.
+- Store short repeatable checks in `playbooks/checklists/`.
+- Use placeholders such as `{repo_name}` or `{target_file}` instead of real secrets, account identifiers, or machine-specific paths.
+- Do not mark playbooks with tool lifecycle labels such as `usable` unless the top-level README explicitly defines a playbook status system later.
+- Update `playbooks/README.md` and all three top-level README files when adding, renaming, or removing a playbook entry.
 
 ## Status lifecycle
 
@@ -130,6 +165,13 @@ When adding a new tool:
 7. Keep the status `wip` until verification passes.
 8. After verification passes, update status to `usable` only if the tool is genuinely ready.
 
+When adding a new playbook:
+
+1. Add one Markdown file under `playbooks/prompts/`, `playbooks/workflows/`, or `playbooks/checklists/`.
+2. Add or update `playbooks/README.md`.
+3. Add one row to the playbook index in `README.md`, `README.en.md`, and `README.ja.md`.
+4. Keep the entry human-facing. If it becomes an agent instruction, move it to `skills/<skill-name>/SKILL.md` instead.
+
 When editing an existing tool:
 
 1. Keep changes scoped to that tool folder unless repo-wide docs must change.
@@ -145,6 +187,7 @@ When maintaining multilingual README files:
 - Keep section order the same across `README.md`, `README.en.md`, and `README.ja.md`.
 - Keep tool rows aligned across languages: same tool name, same status, same ordering.
 - Keep skill rows aligned across languages: same skill name, same status, same ordering.
+- Keep playbook rows aligned across languages: same entry, same type, same ordering.
 - Translate purpose text naturally, but do not add extra claims in only one language.
 - Keep status label values exactly as `idea`, `wip`, `usable`, and `deprecated` in every language.
 - Keep links between language versions working.
