@@ -25,6 +25,7 @@
 | 項目 | 種類 | 用途 |
 |------|------|------|
 | [AGENTS.md 初期化草案](playbooks/prompts/initialize-agents-md.md) | `prompt` | Agent に現在のリポジトリを先に調査させ、`AGENTS.md`、`AGENTS_CHANGELOGS.md`、`CODEGUIDE.md` の初期化案を議論するためのプロンプトです。 |
+| [コード文書の階層別メンテナンスルール](playbooks/prompts/code-documentation-layered-maintenance.md) | `prompt` | Agent が L0-L4 の階層に沿ってコード構造文書を維持し、アーキテクチャ、原則、ドメインモデル、モジュール詳細、運用手順の混在を避けるためのプロンプトです。 |
 
 ## 状態ラベル
 

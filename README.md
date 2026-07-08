@@ -25,6 +25,7 @@
 | 条目 | 类型 | 用途 |
 |------|------|------|
 | [初始化 AGENTS.md 草案](playbooks/prompts/initialize-agents-md.md) | `prompt` | 引导 Agent 先调研当前仓库，再讨论 `AGENTS.md`、`AGENTS_CHANGELOGS.md` 和 `CODEGUIDE.md` 初始化方案。 |
+| [代码文档分层维护规则](playbooks/prompts/code-documentation-layered-maintenance.md) | `prompt` | 引导 Agent 按 L0-L4 分层维护代码结构文档，避免文档混层。 |
 
 ## 状态说明
 

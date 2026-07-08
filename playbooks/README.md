@@ -9,6 +9,7 @@
 | 条目 | 用途 |
 |------|------|
 | [初始化 AGENTS.md 草案](prompts/initialize-agents-md.md) | 让 Agent 先调研当前仓库，再输出 `AGENTS.md`、`AGENTS_CHANGELOGS.md` 和 `CODEGUIDE.md` 初始化讨论稿。 |
+| [代码文档分层维护规则](prompts/code-documentation-layered-maintenance.md) | 要求 Agent 按 L0-L4 分层维护代码结构文档，避免架构、原则、领域模型、模块细节和运维命令混层。 |
 
 ### Workflows
 

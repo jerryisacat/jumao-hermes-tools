@@ -25,6 +25,7 @@ This repository is intentionally lightweight: each tool or script lives in its o
 | Entry | Type | Purpose |
 |-------|------|---------|
 | [Initialize an AGENTS.md draft](playbooks/prompts/initialize-agents-md.md) | `prompt` | Guides an agent to research the current repository before discussing an initialization plan for `AGENTS.md`, `AGENTS_CHANGELOGS.md`, and `CODEGUIDE.md`. |
+| [Layered code documentation maintenance rules](playbooks/prompts/code-documentation-layered-maintenance.md) | `prompt` | Guides an agent to maintain code structure documentation across L0-L4 layers without mixing architecture, principles, domain models, module details, and operations. |
 
 ## Status labels
 

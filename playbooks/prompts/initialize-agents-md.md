@@ -10,6 +10,10 @@
 
 把下面的 prompt 粘贴给 Agent。确认讨论稿后，再单独要求 Agent 初始化或更新对应文件。
 
+## 关联 playbook
+
+- [代码文档分层维护规则](code-documentation-layered-maintenance.md)：这是本 prompt 中“代码治理规则 / `CODEGUIDE.md` 规则”的衍生 playbook。当初始化草案涉及代码结构文档体系、`CODEGUIDE.md` 重构或文档维护边界时，可把该 playbook 作为补充规则一并交给 Agent。
+
 ## Prompt
 
 ```text
@@ -86,6 +90,8 @@
    - 关键数据流
    - 关键调用链
    - 新增、移动、删除文件后应同步更新
+
+   如果项目需要更严格的代码结构文档治理，请参考衍生 playbook：`playbooks/prompts/code-documentation-layered-maintenance.md`。该规则把代码文档拆为 L0-L4：系统架构、设计原则与边界、领域模型、模块与调用链、操作与运维，并规定每类变更应更新哪一层。
 
 8. 每次任务结束前，Agent 都必须检查以下文件是否需要更新：
    - `AGENTS.md`
