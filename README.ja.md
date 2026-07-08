@@ -18,6 +18,7 @@
 | スキル | 状態 | 用途 |
 |--------|------|------|
 | [aria2-download](skills/aria2-download/) | `usable` | 大容量・一括・再開可能なダウンロード時に、Agent がローカル aria2 wrapper を使い検証まで行うための手順です。 |
+| [initialize-github-repository](skills/initialize-github-repository/) | `usable` | GitHub リポジトリ初期化時に、secret チェック、デプロイ先決定、ガバナンス文書、Issue/PR テンプレート、初回 commit と push を Agent が安全に進めるための手順です。 |
 | [steam-activity](skills/steam-activity/) | `usable` | Steam の現在状態、最近のプレイ、ライブラリ、プレイ時間ランキングを照会して解釈するための Agent 手順です。 |
 
 ## プレイブック索引

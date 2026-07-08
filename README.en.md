@@ -18,6 +18,7 @@ This repository is intentionally lightweight: each tool or script lives in its o
 | Skill | Status | Purpose |
 |-------|--------|---------|
 | [aria2-download](skills/aria2-download/) | `usable` | Guides agents to use the local aria2 wrapper for large, batched, or resumable downloads with verification. |
+| [initialize-github-repository](skills/initialize-github-repository/) | `usable` | Guides agents through safe GitHub repository initialization: secret checks, deployment target decisions, governance files, Issue/PR templates, first commit, and push. |
 | [steam-activity](skills/steam-activity/) | `usable` | Guides agents to query and interpret Steam current status, recent activity, library, and playtime rankings. |
 
 ## Playbook index

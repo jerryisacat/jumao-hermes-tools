@@ -18,6 +18,7 @@
 | 技能 | 状态 | 用途 |
 |------|------|------|
 | [aria2-download](skills/aria2-download/) | `usable` | 当用户需要大文件、批量下载或断点续传时，指导 Agent 使用本地 aria2 wrapper 并完成校验。 |
+| [initialize-github-repository](skills/initialize-github-repository/) | `usable` | 初始化 GitHub 仓库时，指导 Agent 完成安全检查、部署平台决策、治理文件、Issue/PR 模板、首次 commit 和 push。 |
 | [steam-activity](skills/steam-activity/) | `usable` | 当用户询问 Steam 当前状态、最近游玩、游戏库或时长排行时，规范使用本地工具查询并解读结果。 |
 
 ## 使用手册索引
