@@ -1,7 +1,7 @@
 ---
 name: initialize-github-repository
 description: "Use when initializing a local project as a GitHub repository or adding first-time GitHub governance files. Guides safe repo creation, secret checks, deployment target decisions, README/license/gitignore setup, Issues/PR templates, initial commit, push, and optional Agent governance playbooks."
-version: 1.0.0
+version: 1.1.0
 author: jerryisacat
 license: MIT
 metadata:
@@ -67,7 +67,7 @@ Completion criterion: you know whether the directory is a git repo, whether it a
 
 Use when the user wants a new repo and there is no meaningful local project yet.
 
-1. Decide repo metadata: name, owner, visibility, description, license, default branch, deployment target.
+1. Decide repo metadata: name, owner, visibility, description, license, default branch, deployment target, mobile strategy.
 2. Create a local directory.
 3. Add minimum files: `README.md`, `.gitignore`, and LICENSE only when open-source publishing is confirmed.
 4. Optionally add `.github/ISSUE_TEMPLATE/` and `.github/PULL_REQUEST_TEMPLATE.md`.
@@ -282,6 +282,38 @@ Agent rules:
 ```
 
 Completion criterion: future agents can read the governance docs and understand where the project is meant to run and which design choices are forbidden by that platform.
+
+## Mobile strategy decision
+
+Mobile support is part of product and code governance. Before generating or updating `AGENTS.md` for a repository that has any user interface, explicitly ask the user whether the project needs mobile adaptation or should be mobile-first. Do not infer this from the tech stack alone.
+
+Ask at least:
+
+| Question | What to document |
+|---|---|
+| Is mobile support required? | yes, no, later, or unknown |
+| Priority model | mobile-first, desktop-first with mobile compatibility, or desktop-only |
+| Target surfaces | responsive web, PWA, native app, mini program, tablet, or none |
+| UX constraints | breakpoints, touch targets, offline mode, installability, viewport assumptions |
+| Verification | which viewport/device checks are required before finishing UI work |
+
+Write the confirmed decision into `AGENTS.md` or the equivalent agent governance file. If the user says mobile is not required, record that explicitly so future agents do not add mobile-first complexity by default.
+
+Example `AGENTS.md` section:
+
+```markdown
+## Mobile Strategy
+
+Current decision: desktop-first with mobile compatibility.
+
+Agent rules:
+- Before UI changes, check whether the touched view needs mobile behavior.
+- Preserve responsive layouts at common mobile widths unless the feature is explicitly desktop-only.
+- For UI work, verify at least one desktop viewport and one mobile viewport before completion.
+- Do not introduce native app, mini program, or PWA assumptions unless this section is updated.
+```
+
+Completion criterion: future agents can read `AGENTS.md` and know whether to design for mobile, mobile-first, desktop-first responsive, or desktop-only behavior.
 
 ## Minimal project files
 
@@ -538,7 +570,7 @@ Before staging:
 
 1. `.gitignore` exists and covers generated/local/secret files.
 2. Safety gate has no unresolved warnings.
-3. Repo metadata and deployment target are decided or explicitly marked not applicable.
+3. Repo metadata, deployment target, and mobile strategy are decided or explicitly marked not applicable.
 4. Governance weight matches project maturity.
 
 Then stage deliberately:
@@ -587,6 +619,7 @@ Report:
 - Default branch.
 - Files added or updated.
 - Deployment target recorded, or why not applicable.
+- Mobile strategy recorded in `AGENTS.md`, or why not applicable.
 - Issue/PR templates added, or why skipped.
 - Verification commands run.
 - Whether commit/push was done or intentionally skipped.
@@ -605,6 +638,7 @@ Report:
 10. **Creating vague issues or PRs.** Require scope, acceptance criteria, verification, and risk notes.
 11. **Mixing README and governance docs.** README is user-facing; `AGENTS.md` is agent-facing; `CODEGUIDE.md` is code-structure documentation.
 12. **Ignoring platform constraints.** Do not design persistent filesystem features for Workers or assume Railway/VPS behavior without documenting it.
+13. **Skipping mobile strategy.** For UI projects, future agents need to know whether to optimize for mobile-first, desktop-first responsive behavior, or desktop-only scope.
 
 ## Verification checklist
 
@@ -614,6 +648,7 @@ Report:
 - [ ] Visibility explicitly confirmed or defaulted to private.
 - [ ] License only added after open-source intent is confirmed.
 - [ ] Deployment target decision recorded in `AGENTS.md` or marked not applicable.
+- [ ] Mobile strategy decision recorded in `AGENTS.md` or marked not applicable.
 - [ ] Issue and PR governance added or intentionally skipped with reason.
 - [ ] Optional Agent governance playbooks referenced only when useful.
 - [ ] Commit message follows repo convention.
