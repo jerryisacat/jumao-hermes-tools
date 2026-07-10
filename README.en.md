@@ -11,6 +11,7 @@ This repository is intentionally lightweight: each tool or script lives in its o
 | Tool | Status | Purpose |
 |------|--------|---------|
 | [aria2-download](tools/aria2-download/) | `usable` | Safely downloads large files, URL batches, and resumable transfers with aria2. |
+| [hosted-ppt](tools/hosted-ppt/) | `wip` | A presentation hosting platform for humans and AI agents with email gate, viewing analytics, and admin dashboard. |
 | [steam-activity](tools/steam-activity/) | `usable` | Reads Steam library, recently played games, and the currently played game. |
 
 ## Skill index
@@ -18,6 +19,7 @@ This repository is intentionally lightweight: each tool or script lives in its o
 | Skill | Status | Purpose |
 |-------|--------|---------|
 | [aria2-download](skills/aria2-download/) | `usable` | Guides agents to use the local aria2 wrapper for large, batched, or resumable downloads with verification. |
+| [hosted-ppt](skills/hosted-ppt/) | `wip` | Guides agents to deploy, add presentations, troubleshoot, and use the Agent API of the hosted-ppt platform. |
 | [initialize-github-repository](skills/initialize-github-repository/) | `usable` | Guides agents through safe GitHub repository initialization: secret checks, deployment target decisions, governance files, Issue/PR templates, first commit, and push. |
 | [steam-activity](skills/steam-activity/) | `usable` | Guides agents to query and interpret Steam current status, recent activity, library, and playtime rankings. |
 

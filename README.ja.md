@@ -11,6 +11,7 @@
 | ツール | 状態 | 用途 |
 |--------|------|------|
 | [aria2-download](tools/aria2-download/) | `usable` | aria2 を使って大容量ファイル、URL 一括、再開可能なダウンロードを安全に実行します。 |
+| [hosted-ppt](tools/hosted-ppt/) | `wip` | 人間と AI Agent 両方向けのプレゼンテーション hosting プラットフォーム。メール認証、閲覧 tracking、分析 dashboard、Agent API を搭載。 |
 | [steam-activity](tools/steam-activity/) | `usable` | Steam ライブラリ、最近プレイしたゲーム、現在プレイ中のゲームを読み取ります。 |
 
 ## スキル索引
@@ -18,6 +19,7 @@
 | スキル | 状態 | 用途 |
 |--------|------|------|
 | [aria2-download](skills/aria2-download/) | `usable` | 大容量・一括・再開可能なダウンロード時に、Agent がローカル aria2 wrapper を使い検証まで行うための手順です。 |
+| [hosted-ppt](skills/hosted-ppt/) | `wip` | hosted-ppt プラットフォームのデプロイ、プレゼンテーション追加、トラブルシューティング、Agent API の利用を Agent が行うための手順です。 |
 | [initialize-github-repository](skills/initialize-github-repository/) | `usable` | GitHub リポジトリ初期化時に、secret チェック、デプロイ先決定、ガバナンス文書、Issue/PR テンプレート、初回 commit と push を Agent が安全に進めるための手順です。 |
 | [steam-activity](skills/steam-activity/) | `usable` | Steam の現在状態、最近のプレイ、ライブラリ、プレイ時間ランキングを照会して解釈するための Agent 手順です。 |
 

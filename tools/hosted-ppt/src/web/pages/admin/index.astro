@@ -1,0 +1,63 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+
+export const prerender = true;
+const apiUrl = import.meta.env.PUBLIC_API_URL || '';
+---
+<AdminLayout title="Overview" active="overview">
+  <h1>Dashboard</h1>
+  <p class="page-sub">Platform analytics at a glance.</p>
+
+  <section class="stat-grid" aria-label="Key metrics" id="stat-grid">
+    <div class="stat-card"><div class="num">—</div><span class="label">Presentations</span></div>
+    <div class="stat-card"><div class="num">—</div><span class="label">Views (30d)</span></div>
+    <div class="stat-card"><div class="num">—</div><span class="label">Unique Viewers</span></div>
+    <div class="stat-card"><div class="num">—</div><span class="label">Total Leads</span></div>
+    <div class="stat-card"><div class="num">—</div><span class="label">Avg Completion</span></div>
+  </section>
+
+  <h2>Recent Activity</h2>
+  <div id="recent-activity">
+    <div class="card empty-state">Loading...</div>
+  </div>
+</AdminLayout>
+
+<script is:inline define:vars={{ apiUrl }}>
+(function () {
+  async function load() {
+    try {
+      const res = await fetch(apiUrl + '/api/analytics/overview', { credentials: 'include' });
+      if (res.status === 401) { window.location.href = '/admin/login'; return; }
+      const body = await res.json();
+      const d = body.data;
+      if (!d) return;
+      const grid = document.getElementById('stat-grid');
+      const stats = [
+        { label: 'Presentations', value: d.total_presentations ?? 0 },
+        { label: 'Views (30d)', value: d.total_views_30d ?? 0 },
+        { label: 'Unique Viewers', value: d.unique_viewers ?? 0 },
+        { label: 'Total Leads', value: d.total_leads ?? 0 },
+        { label: 'Avg Completion', value: d.avg_completion_rate != null ? Math.round(d.avg_completion_rate * 100) + '%' : '—' },
+      ];
+      grid.innerHTML = stats.map(s => `<div class="stat-card"><div class="num">${s.value}</div><span class="label">${s.label}</span></div>`).join('');
+
+      const recent = d.recent_activity || [];
+      const container = document.getElementById('recent-activity');
+      if (recent.length === 0) {
+        container.innerHTML = '<div class="card empty-state">No recent viewing activity yet. Share a presentation link to start collecting data.</div>';
+      } else {
+        container.innerHTML = '<div class="card">' + recent.map(a => {
+          const dt = new Date(a.started_at).toLocaleString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+          return `<div class="heat-row" style="grid-template-columns: 1fr auto;">
+            <div><strong>${a.viewer_email || 'Anonymous'}</strong> <span class="text-muted">viewed</span> <a href="/admin/analytics?slug=${a.presentation_slug}">${a.presentation_slug}</a></div>
+            <div class="heat-meta">${dt}</div>
+          </div>`;
+        }).join('') + '</div>';
+      }
+    } catch (e) {
+      document.getElementById('recent-activity').innerHTML = '<div class="card empty-state">Failed to load analytics.</div>';
+    }
+  }
+  load();
+})();
+</script>

@@ -1,0 +1,103 @@
+---
+import Base from '../layouts/Base.astro';
+export const prerender = true;
+const apiUrl = import.meta.env.PUBLIC_API_URL || '';
+---
+<Base title="Hosted PPT Directory">
+  <h1>hosted-ppt</h1>
+  <p>这里是 HTML / PPT 展示页目录。目录需要验证邮箱访问；每个展示页保持独立，不在页面内提供返回目录的入口。</p>
+
+  <section class="gate" aria-label="目录访问验证">
+    <form id="email-form" autocomplete="off">
+      <input id="email" type="email" inputmode="email" placeholder="请输入邮箱" aria-label="邮箱" required />
+      <button type="submit" id="email-submit">获取验证码</button>
+    </form>
+    <form id="code-form" autocomplete="off" style="display:none; margin-top:12px;">
+      <input id="code" type="text" inputmode="numeric" placeholder="请输入6位验证码" aria-label="验证码" maxlength="6" required />
+      <button type="submit" id="code-submit">验证</button>
+    </form>
+    <div id="error" class="error" role="alert"></div>
+    <p class="hint">提示：目录仅用于从首页进入独立展示页；展示页 URL 可单独分享。</p>
+  </section>
+
+  <section class="deck-list" aria-label="展示页目录">
+    <h2>Presentations</h2>
+    <ul>
+      <!-- Add your presentation links here -->
+      <!-- <li><a href="/talks/my-deck/">My Deck</a></li> -->
+    </ul>
+  </section>
+</Base>
+
+---
+const apiUrl = import.meta.env.PUBLIC_API_URL || '';
+---
+<script is:inline define:vars={{ apiUrl }}>
+  const STORAGE_KEY = 'hosted-ppt-directory-unlocked';
+  const app = document.getElementById('app');
+  const emailForm = document.getElementById('email-form');
+  const codeForm = document.getElementById('code-form');
+  const error = document.getElementById('error');
+
+  function unlock() {
+    app.classList.add('unlocked');
+    sessionStorage.setItem(STORAGE_KEY, '1');
+  }
+
+  if (sessionStorage.getItem(STORAGE_KEY) === '1') {
+    unlock();
+  }
+
+  emailForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    error.textContent = '';
+    const btn = document.getElementById('email-submit');
+    btn.disabled = true;
+    try {
+      const res = await fetch(apiUrl + '/api/auth/email/request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: document.getElementById('email').value }),
+      });
+      const body = await res.json();
+      if (!res.ok) {
+        error.textContent = body?.error?.message || '请求失败';
+        btn.disabled = false;
+        return;
+      }
+      emailForm.style.display = 'none';
+      codeForm.style.display = 'grid';
+    } catch (err) {
+      error.textContent = '网络错误';
+      btn.disabled = false;
+    }
+  });
+
+  codeForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    error.textContent = '';
+    const btn = document.getElementById('code-submit');
+    btn.disabled = true;
+    try {
+      const res = await fetch(apiUrl + '/api/auth/email/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          email: document.getElementById('email').value,
+          code: document.getElementById('code').value,
+        }),
+      });
+      const body = await res.json();
+      if (!res.ok) {
+        error.textContent = body?.error?.message || '验证失败';
+        btn.disabled = false;
+        return;
+      }
+      unlock();
+    } catch (err) {
+      error.textContent = '网络错误';
+      btn.disabled = false;
+    }
+  });
+</script>

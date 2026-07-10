@@ -1,0 +1,10 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist", "server", "node_modules", ".vercel"],
+  "compilerOptions": {
+    "moduleResolution": "bundler",
+    "allowJs": true,
+    "types": ["node"]
+  }
+}

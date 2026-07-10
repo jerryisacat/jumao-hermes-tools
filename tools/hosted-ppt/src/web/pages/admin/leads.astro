@@ -1,0 +1,66 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+
+export const prerender = true;
+const apiUrl = import.meta.env.PUBLIC_API_URL || '';
+---
+<AdminLayout title="Leads" active="leads">
+  <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:20px;">
+    <div>
+      <h1 style="margin:0;">Leads</h1>
+      <p class="page-sub" style="margin:4px 0 0;" id="leads-summary">Loading...</p>
+    </div>
+    <button class="btn btn-primary" id="export-csv">Export CSV</button>
+  </div>
+  <div id="leads-content"><div class="card empty-state">Loading...</div></div>
+  <div class="pagination" id="pagination"></div>
+</AdminLayout>
+
+<script is:inline define:vars={{ apiUrl }}>
+(function () {
+  const limit = 20;
+
+  function fmtDate(s) { if (!s) return ''; return new Date(s).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' }); }
+  function fmtDuration(ms) { if (!ms || ms <= 0) return '0:00'; const s = Math.round(ms / 1000); const m = Math.floor(s / 60); return `${m}:${(s % 60).toString().padStart(2, '0')}`; }
+
+  async function load(page) {
+    const container = document.getElementById('leads-content');
+    container.innerHTML = '<div class="card empty-state">Loading...</div>';
+    try {
+      const res = await fetch(apiUrl + `/api/leads?page=${page}&limit=${limit}`, { credentials: 'include' });
+      if (res.status === 401) { window.location.href = '/admin/login'; return; }
+      const body = await res.json();
+      const data = body.data || {};
+      const leads = data.items || data || [];
+      const total = data.total ?? leads.length;
+      const totalPages = Math.max(1, Math.ceil(total / limit));
+      document.getElementById('leads-summary').textContent = `${total} total · Page ${page} of ${totalPages}`;
+      if (leads.length === 0) {
+        container.innerHTML = '<div class="card empty-state">No leads yet. Leads are generated automatically when viewers watch presentations.</div>';
+        document.getElementById('pagination').innerHTML = '';
+        return;
+      }
+      container.innerHTML = `<div class="table-wrap"><table><thead><tr><th>Email</th><th>Score</th><th>Sessions</th><th>Total Duration</th><th>Last Touch</th><th>Last Deck</th></tr></thead><tbody>${leads.map(l => `<tr><td data-label="Email"><strong>${l.email}</strong></td><td data-label="Score"><span class="badge" style="background:rgba(240,171,252,${0.1 + (l.score / 100) * 0.4});color:var(--accent);">${l.score}</span></td><td data-label="Sessions">${l.total_sessions ?? 0}</td><td data-label="Total Duration">${fmtDuration(l.total_duration_ms)}</td><td data-label="Last Touch">${fmtDate(l.last_touch_at)}</td><td data-label="Last Deck"><code>${l.last_presentation_slug || '-'}</code></td></tr>`).join('')}</tbody></table></div>`;
+      const pag = document.getElementById('pagination');
+      if (totalPages > 1) {
+        pag.innerHTML = `${page > 1 ? `<a class="btn btn-sm" href="#" data-page="${page - 1}">← Prev</a>` : '<span class="btn btn-sm" style="opacity:.4;pointer-events:none;">← Prev</span>'}<span class="text-muted" style="padding:10px 8px;font-size:.85rem;">${page} / ${totalPages}</span>${page < totalPages ? `<a class="btn btn-sm" href="#" data-page="${page + 1}">Next →</a>` : '<span class="btn btn-sm" style="opacity:.4;pointer-events:none;">Next →</span>'}`;
+        pag.querySelectorAll('[data-page]').forEach(a => a.addEventListener('click', (e) => { e.preventDefault(); load(parseInt(a.getAttribute('data-page'), 10)); }));
+      } else { pag.innerHTML = ''; }
+    } catch (e) { container.innerHTML = '<div class="card empty-state">Failed to load leads.</div>'; }
+  }
+
+  load(1);
+
+  document.getElementById('export-csv').addEventListener('click', async () => {
+    try {
+      const res = await fetch(apiUrl + '/api/leads.csv', { credentials: 'include' });
+      if (res.status === 401) { window.location.href = '/admin/login'; return; }
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'leads.csv'; a.click();
+      URL.revokeObjectURL(url);
+    } catch (e) { window.showToast('Export failed'); }
+  });
+})();
+</script>

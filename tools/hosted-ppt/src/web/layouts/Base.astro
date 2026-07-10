@@ -1,0 +1,90 @@
+---
+interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+---
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>{title}</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --bg-a: #0f172a;
+      --bg-b: #111827;
+      --card: rgba(15,23,42,.78);
+      --line: rgba(255,255,255,.16);
+      --text: #f8fafc;
+      --muted: #cbd5e1;
+      --accent: #f0abfc;
+      --accent-2: #93c5fd;
+      --danger: #fca5a5;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at top left, rgba(245, 208, 254, .9), transparent 30rem),
+        radial-gradient(circle at bottom right, rgba(59, 130, 246, .45), transparent 34rem),
+        linear-gradient(135deg, var(--bg-a), var(--bg-b));
+      color: var(--text);
+    }
+    main {
+      width: min(820px, calc(100vw - 40px));
+      padding: 48px;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: var(--card);
+      box-shadow: 0 24px 80px rgba(0,0,0,.35);
+      backdrop-filter: blur(14px);
+    }
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2.4rem, 8vw, 5rem);
+      letter-spacing: -0.06em;
+    }
+    h2 {
+      margin: 0 0 14px;
+      font-size: 1rem;
+      color: #e2e8f0;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    p { margin: 0; color: var(--muted); font-size: 1.1rem; line-height: 1.7; }
+    code { color: var(--accent); }
+    form { margin-top: 30px; display: grid; grid-template-columns: 1fr auto; gap: 12px; }
+    input, button { min-height: 48px; border-radius: 14px; border: 1px solid var(--line); font: inherit; }
+    input { width: 100%; padding: 0 16px; color: var(--text); background: rgba(255,255,255,.08); outline: none; }
+    input:focus { border-color: rgba(147, 197, 253, .78); box-shadow: 0 0 0 4px rgba(147, 197, 253, .14); }
+    button { cursor: pointer; padding: 0 22px; color: #0f172a; background: linear-gradient(135deg, var(--accent), var(--accent-2)); font-weight: 800; }
+    button:disabled { opacity: .6; cursor: wait; }
+    .error { min-height: 24px; margin-top: 10px; color: var(--danger); font-size: .95rem; }
+    .deck-list { display: none; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--line); }
+    .deck-list ul { margin: 0; padding-left: 20px; }
+    .deck-list li { margin: 10px 0; color: var(--muted); }
+    .deck-list a { color: var(--accent); text-decoration: none; font-weight: 800; }
+    .deck-list a:hover { text-decoration: underline; }
+    .unlocked .gate { display: none; }
+    .unlocked .deck-list { display: block; }
+    .hint { margin-top: 16px; font-size: .92rem; color: #94a3b8; }
+    @media (max-width: 640px) {
+      main { padding: 32px 24px; }
+      form { grid-template-columns: 1fr; }
+      button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <main id="app">
+    <slot />
+  </main>
+</body>
+</html>

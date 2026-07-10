@@ -11,6 +11,7 @@
 | 工具 | 状态 | 用途 |
 |------|------|------|
 | [aria2-download](tools/aria2-download/) | `usable` | 用 aria2 安全下载大文件、多文件和断点续传任务。 |
+| [hosted-ppt](tools/hosted-ppt/) | `wip` | 面向人类和 AI Agent 的演示文稿托管平台，含邮箱门控、浏览追踪、分析仪表盘和 Agent API。 |
 | [steam-activity](tools/steam-activity/) | `usable` | 读取 Steam 游戏库、最近游玩和当前正在玩的游戏。 |
 
 ## 技能索引
@@ -18,6 +19,7 @@
 | 技能 | 状态 | 用途 |
 |------|------|------|
 | [aria2-download](skills/aria2-download/) | `usable` | 当用户需要大文件、批量下载或断点续传时，指导 Agent 使用本地 aria2 wrapper 并完成校验。 |
+| [hosted-ppt](skills/hosted-ppt/) | `wip` | 当用户需要部署、添加演示页或排查 hosted-ppt 平台问题时，指导 Agent 完成本地开发、部署、API 调用和页面验证。 |
 | [initialize-github-repository](skills/initialize-github-repository/) | `usable` | 初始化 GitHub 仓库时，指导 Agent 完成安全检查、部署平台决策、治理文件、Issue/PR 模板、首次 commit 和 push。 |
 | [steam-activity](skills/steam-activity/) | `usable` | 当用户询问 Steam 当前状态、最近游玩、游戏库或时长排行时，规范使用本地工具查询并解读结果。 |
 

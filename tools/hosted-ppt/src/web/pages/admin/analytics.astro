@@ -1,0 +1,66 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+
+export const prerender = true;
+const apiUrl = import.meta.env.PUBLIC_API_URL || '';
+---
+<AdminLayout title="Analytics" active="analytics">
+  <h1>Analytics</h1>
+  <p class="page-sub">Per-presentation viewing data and slide engagement.</p>
+
+  <div class="card" style="margin-bottom:20px; padding:16px;">
+    <label for="slug-select" style="margin-bottom:8px;">Select Presentation</label>
+    <select id="slug-select" name="slug"><option value="">Loading...</option></select>
+  </div>
+
+  <div id="analytics-content">
+    <div class="card empty-state">Select a presentation to view analytics.</div>
+  </div>
+</AdminLayout>
+
+<script is:inline define:vars={{ apiUrl }}>
+(function () {
+  function fmtDuration(ms) { if (!ms || ms <= 0) return '0:00'; const s = Math.round(ms / 1000); const m = Math.floor(s / 60); return `${m}:${(s % 60).toString().padStart(2, '0')}`; }
+
+  async function loadPresentations() {
+    try {
+      const res = await fetch(apiUrl + '/api/presentations', { credentials: 'include' });
+      if (res.status === 401) { window.location.href = '/admin/login'; return; }
+      const body = await res.json();
+      const presentations = body.data || [];
+      const select = document.getElementById('slug-select');
+      if (presentations.length === 0) { select.innerHTML = '<option value="">No presentations available</option>'; return; }
+      select.innerHTML = presentations.map(p => `<option value="${p.slug}">${p.title} (${p.slug})</option>`).join('');
+      select.addEventListener('change', () => { const slug = select.value; if (slug) loadAnalytics(slug); });
+      if (presentations.length > 0) loadAnalytics(presentations[0].slug);
+    } catch (e) { document.getElementById('slug-select').innerHTML = '<option value="">Failed to load</option>'; }
+  }
+
+  async function loadAnalytics(slug) {
+    const container = document.getElementById('analytics-content');
+    container.innerHTML = '<div class="card empty-state">Loading...</div>';
+    try {
+      const res = await fetch(apiUrl + `/api/analytics/${slug}`, { credentials: 'include' });
+      if (!res.ok) { container.innerHTML = `<div class="card empty-state">No analytics data available for "${slug}".</div>`; return; }
+      const body = await res.json();
+      const a = body.data;
+      if (!a) { container.innerHTML = `<div class="card empty-state">No data.</div>`; return; }
+      const heatmap = a.heatmap || [];
+      const maxDur = heatmap.reduce((m, s) => Math.max(m, s.avg_duration_ms || 0), 0) || 1;
+      container.innerHTML = `<section class="stat-grid" style="grid-template-columns: repeat(4,1fr); margin-bottom:24px;">
+        <div class="stat-card"><div class="num">${a.total_sessions ?? 0}</div><span class="label">Total Sessions</span></div>
+        <div class="stat-card"><div class="num">${a.unique_viewers ?? 0}</div><span class="label">Unique Viewers</span></div>
+        <div class="stat-card"><div class="num">${fmtDuration(a.avg_duration_ms)}</div><span class="label">Avg Duration</span></div>
+        <div class="stat-card"><div class="num">${a.avg_completion_rate != null ? Math.round(a.avg_completion_rate * 100) + '%' : '-'}</div><span class="label">Avg Completion</span></div>
+      </section>
+      <h2>Slide Heatmap</h2>
+      ${heatmap.length > 0 ? `<div class="card"><div class="heatmap">${heatmap.map(s => {
+        const intensity = Math.min(100, Math.round(((s.avg_duration_ms || 0) / maxDur) * 100));
+        return `<div class="heat-row"><span class="text-muted">#${s.slide_index + 1}</span><div class="heat-bar-wrap" title="Avg ${fmtDuration(s.avg_duration_ms)}, ${s.view_count} views"><div class="heat-bar" style="width:${intensity}%"></div></div><span class="heat-meta">${fmtDuration(s.avg_duration_ms)} · ${s.view_count}v</span></div>`;
+      }).join('')}</div></div>` : '<div class="card empty-state">No slide-level data yet.</div>'}`;
+    } catch (e) { container.innerHTML = '<div class="card empty-state">Failed to load analytics.</div>'; }
+  }
+
+  loadPresentations();
+})();
+</script>

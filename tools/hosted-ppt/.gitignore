@@ -1,0 +1,28 @@
+.DS_Store
+.vercel
+node_modules
+dist
+.astro
+*.log
+
+# Local env files
+.env
+.env.local
+.env.*.local
+
+# Build output
+dist
+.build
+
+# IDE
+.vscode
+.idea
+
+# Python
+__pycache__
+*.pyc
+.venv
+
+# Test artifacts
+coverage
+*.tsbuildinfo

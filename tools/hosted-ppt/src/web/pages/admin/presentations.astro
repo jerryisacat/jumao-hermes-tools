@@ -1,0 +1,129 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+
+export const prerender = true;
+const apiUrl = import.meta.env.PUBLIC_API_URL || '';
+---
+<AdminLayout title="Presentations" active="presentations">
+  <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:20px;">
+    <div>
+      <h1 style="margin:0;">Presentations</h1>
+      <p class="page-sub" style="margin:4px 0 0;">Manage your hosted decks.</p>
+    </div>
+    <button class="btn btn-primary" data-open-modal="create-modal">+ New Presentation</button>
+  </div>
+
+  <div id="presentations-content">
+    <div class="card empty-state">Loading...</div>
+  </div>
+
+  <div class="modal-backdrop" id="create-modal">
+    <div class="modal" style="position:relative;">
+      <button class="close" data-modal-close aria-label="Close">×</button>
+      <h3>New Presentation</h3>
+      <form id="create-form">
+        <div class="form-grid">
+          <div class="full"><label for="c-title">Title</label><input id="c-title" name="title" type="text" required placeholder="My Deck" /></div>
+          <div class="full"><label for="c-slug">Slug</label><input id="c-slug" name="slug" type="text" required placeholder="my-deck" pattern="[a-z0-9-]+" /></div>
+          <div class="full"><label for="c-desc">Description</label><textarea id="c-desc" name="description" placeholder="Optional description"></textarea></div>
+          <div><label for="c-slides">Slide Count</label><input id="c-slides" name="slide_count" type="number" min="0" placeholder="0" /></div>
+        </div>
+        <div class="form-actions"><button type="submit" class="btn btn-primary">Create</button><button type="button" class="btn" data-modal-close>Cancel</button></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="link-modal">
+    <div class="modal" style="position:relative;">
+      <button class="close" data-modal-close aria-label="Close">×</button>
+      <h3>Create Access Link</h3>
+      <p class="text-muted" id="link-target" style="margin:0 0 16px; font-size:.85rem;"></p>
+      <form id="link-form">
+        <input type="hidden" id="l-slug" name="presentation_slug" />
+        <div class="form-grid">
+          <div class="full"><label for="l-email">Viewer Email</label><input id="l-email" name="email" type="email" required placeholder="viewer@example.com" /></div>
+          <div class="full"><label for="l-label">Label (optional)</label><input id="l-label" name="label" type="text" placeholder="Sales call - Acme" /></div>
+          <div><label for="l-expires">Expires At (optional)</label><input id="l-expires" name="expires_at" type="datetime-local" /></div>
+          <div><label for="l-maxviews">Max Views (optional)</label><input id="l-maxviews" name="max_views" type="number" min="1" placeholder="Unlimited" /></div>
+        </div>
+        <div class="form-actions"><button type="submit" class="btn btn-primary">Generate Link</button><button type="button" class="btn" data-modal-close>Cancel</button></div>
+        <div id="link-result" style="margin-top:16px; display:none;"><label>Generated URL</label><div style="display:flex; gap:8px;"><input id="link-url" type="text" readonly style="min-height:48px;" /><button type="button" class="btn" id="copy-link">Copy</button></div></div>
+      </form>
+    </div>
+  </div>
+</AdminLayout>
+
+<script is:inline define:vars={{ apiUrl }}>
+(function () {
+  function fmtDate(s) { if (!s) return ''; return new Date(s).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' }); }
+  function openModal(id) { const m = document.getElementById(id); if (m) m.classList.add('open'); }
+
+  async function load() {
+    try {
+      const res = await fetch(apiUrl + '/api/presentations', { credentials: 'include' });
+      if (res.status === 401) { window.location.href = '/admin/login'; return; }
+      const body = await res.json();
+      const presentations = body.data || [];
+      const container = document.getElementById('presentations-content');
+      if (presentations.length === 0) {
+        container.innerHTML = '<div class="card empty-state">No presentations yet. Create your first one to get started.</div>';
+        return;
+      }
+      container.innerHTML = `<div class="table-wrap"><table><thead><tr><th>Title</th><th>Slug</th><th>Slides</th><th>Status</th><th>Created</th><th>Actions</th></tr></thead><tbody>${presentations.map(p => `<tr><td data-label="Title"><strong>${p.title}</strong></td><td data-label="Slug"><code>${p.slug}</code></td><td data-label="Slides">${p.slide_count ?? '-'}</td><td data-label="Status"><span class="badge ${p.status === 'active' ? 'badge-active' : 'badge-archived'}">${p.status}</span></td><td data-label="Created">${fmtDate(p.created_at)}</td><td data-label="Actions"><div class="actions"><button class="btn btn-sm" data-link-slug="${p.slug}" data-link-title="${p.title}">Create Link</button><a class="btn btn-sm" href="/admin/analytics?slug=${p.slug}">Analytics</a><button class="btn btn-sm btn-danger" data-delete-slug="${p.slug}" data-delete-title="${p.title}">Delete</button></div></td></tr>`).join('')}</tbody></table></div>`;
+      container.querySelectorAll('[data-link-slug]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.getElementById('l-slug').value = btn.getAttribute('data-link-slug');
+          document.getElementById('link-target').textContent = `For: ${btn.getAttribute('data-link-title')} (${btn.getAttribute('data-link-slug')})`;
+          document.getElementById('link-result').style.display = 'none';
+          openModal('link-modal');
+        });
+      });
+      container.querySelectorAll('[data-delete-slug]').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const slug = btn.getAttribute('data-delete-slug');
+          const title = btn.getAttribute('data-delete-title');
+          if (!confirm(`Delete presentation "${title}"? This cannot be undone.`)) return;
+          const res = await fetch(apiUrl + `/api/presentations/${slug}`, { method: 'DELETE', credentials: 'include' });
+          if (res.ok) load(); else window.showToast('Failed to delete');
+        });
+      });
+    } catch (e) {
+      document.getElementById('presentations-content').innerHTML = '<div class="card empty-state">Failed to load presentations.</div>';
+    }
+  }
+
+  document.querySelectorAll('[data-open-modal]').forEach(btn => btn.addEventListener('click', () => openModal(btn.getAttribute('data-open-modal'))));
+
+  document.getElementById('create-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(e.target));
+    if (data.slide_count) data.slide_count = parseInt(data.slide_count, 10); else delete data.slide_count;
+    const res = await fetch(apiUrl + '/api/presentations', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body: JSON.stringify(data) });
+    const body = await res.json();
+    if (!res.ok || body.error) { window.showToast(body?.error?.message || 'Failed to create'); return; }
+    load();
+  });
+
+  document.getElementById('link-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(e.target));
+    if (data.max_views) data.max_views = parseInt(data.max_views, 10); else delete data.max_views;
+    if (!data.expires_at) delete data.expires_at;
+    const res = await fetch(apiUrl + '/api/links', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body: JSON.stringify(data) });
+    const body = await res.json();
+    if (!res.ok || body.error) { window.showToast(body?.error?.message || 'Failed to create link'); return; }
+    const token = body.data?.token || '';
+    const slug = data.presentation_slug;
+    const url = `${window.location.origin}/talks/${slug}/?t=${token}`;
+    document.getElementById('link-url').value = url;
+    document.getElementById('link-result').style.display = 'block';
+  });
+
+  document.getElementById('copy-link').addEventListener('click', () => {
+    const input = document.getElementById('link-url'); input.select();
+    navigator.clipboard.writeText(input.value).then(() => window.showToast('Copied'));
+  });
+
+  load();
+})();
+</script>
