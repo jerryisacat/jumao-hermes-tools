@@ -22,6 +22,7 @@
 | [hosted-ppt](skills/hosted-ppt/) | `wip` | hosted-ppt プラットフォームのデプロイ、プレゼンテーション追加、トラブルシューティング、Agent API の利用を Agent が行うための手順です。 |
 | [initialize-github-repository](skills/initialize-github-repository/) | `usable` | GitHub リポジトリ初期化時に、secret チェック、デプロイ先決定、ガバナンス文書、Issue/PR テンプレート、初回 commit と push を Agent が安全に進めるための手順です。 |
 | [steam-activity](skills/steam-activity/) | `usable` | Steam の現在状態、最近のプレイ、ライブラリ、プレイ時間ランキングを照会して解釈するための Agent 手順です。 |
+| [weixin-elder-setup](skills/weixin-elder-setup/) | `wip` | Hermes のインストール、モデルと WeChat の接続が完了した後、お年寄りの WeChat アシスタントとして設定：補助モデル、SOUL.md ペルソナ、DM ホワイトリスト、毎日天気 cron。 |
 
 ## プレイブック索引
 

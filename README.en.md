@@ -22,6 +22,7 @@ This repository is intentionally lightweight: each tool or script lives in its o
 | [hosted-ppt](skills/hosted-ppt/) | `wip` | Guides agents to deploy, add presentations, troubleshoot, and use the Agent API of the hosted-ppt platform. |
 | [initialize-github-repository](skills/initialize-github-repository/) | `usable` | Guides agents through safe GitHub repository initialization: secret checks, deployment target decisions, governance files, Issue/PR templates, first commit, and push. |
 | [steam-activity](skills/steam-activity/) | `usable` | Guides agents to query and interpret Steam current status, recent activity, library, and playtime rankings. |
+| [weixin-elder-setup](skills/weixin-elder-setup/) | `wip` | After Hermes is installed with model and WeChat already connected, configures it as an elder's WeChat companion: auxiliary models, SOUL.md persona, DM allowlist, and daily weather cron. |
 
 ## Playbook index
 
