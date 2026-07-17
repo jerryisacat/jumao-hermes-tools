@@ -19,8 +19,10 @@ This repository is intentionally lightweight: each tool or script lives in its o
 | Skill | Status | Purpose |
 |-------|--------|---------|
 | [aria2-download](skills/aria2-download/) | `usable` | Guides agents to use the local aria2 wrapper for large, batched, or resumable downloads with verification. |
+| [chinese-formal-documents](skills/chinese-formal-documents/) | `usable` | Guides agents to create and validate formal Chinese government-style documents, contracts, and agreements as font-checked, structurally validated, visually audited PDF/DOCX files with Typst and OfficeCLI. |
 | [hosted-ppt](skills/hosted-ppt/) | `wip` | Guides agents to deploy, add presentations, troubleshoot, and use the Agent API of the hosted-ppt platform. |
 | [initialize-github-repository](skills/initialize-github-repository/) | `usable` | Guides agents through safe GitHub repository initialization: secret checks, deployment target decisions, governance files, Issue/PR templates, first commit, and push. |
+| [modern-editorial-documents](skills/modern-editorial-documents/) | `usable` | Guides agents to create restrained modern-editorial Chinese reports, proposals, white papers, and briefs as full-page-validated PDF/DOCX outputs with Typst and OfficeCLI. |
 | [steam-activity](skills/steam-activity/) | `usable` | Guides agents to query and interpret Steam current status, recent activity, library, and playtime rankings. |
 | [weixin-elder-setup](skills/weixin-elder-setup/) | `wip` | After Hermes is installed with model and WeChat already connected, configures it as an elder's WeChat companion: auxiliary models, SOUL.md persona, DM allowlist, and daily weather cron. |
 

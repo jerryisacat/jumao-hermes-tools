@@ -19,8 +19,10 @@
 | スキル | 状態 | 用途 |
 |--------|------|------|
 | [aria2-download](skills/aria2-download/) | `usable` | 大容量・一括・再開可能なダウンロード時に、Agent がローカル aria2 wrapper を使い検証まで行うための手順です。 |
+| [chinese-formal-documents](skills/chinese-formal-documents/) | `usable` | 中国語の政府文書形式、契約書、合意書を作成・検証する際に、Typst と OfficeCLI を使ってフォント確認、構造検証、全ページ視覚監査済みの PDF/DOCX を生成するための Agent 手順です。 |
 | [hosted-ppt](skills/hosted-ppt/) | `wip` | hosted-ppt プラットフォームのデプロイ、プレゼンテーション追加、トラブルシューティング、Agent API の利用を Agent が行うための手順です。 |
 | [initialize-github-repository](skills/initialize-github-repository/) | `usable` | GitHub リポジトリ初期化時に、secret チェック、デプロイ先決定、ガバナンス文書、Issue/PR テンプレート、初回 commit と push を Agent が安全に進めるための手順です。 |
+| [modern-editorial-documents](skills/modern-editorial-documents/) | `usable` | モダンで抑制された編集デザインの中国語レポート、提案書、ホワイトペーパー、調査概要を、Typst と OfficeCLI で全ページ検証済みの PDF/DOCX として作成するための Agent 手順です。 |
 | [steam-activity](skills/steam-activity/) | `usable` | Steam の現在状態、最近のプレイ、ライブラリ、プレイ時間ランキングを照会して解釈するための Agent 手順です。 |
 | [weixin-elder-setup](skills/weixin-elder-setup/) | `wip` | Hermes のインストール、モデルと WeChat の接続が完了した後、お年寄りの WeChat アシスタントとして設定：補助モデル、SOUL.md ペルソナ、DM ホワイトリスト、毎日天気 cron。 |
 

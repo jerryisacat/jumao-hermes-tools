@@ -19,8 +19,10 @@
 | 技能 | 状态 | 用途 |
 |------|------|------|
 | [aria2-download](skills/aria2-download/) | `usable` | 当用户需要大文件、批量下载或断点续传时，指导 Agent 使用本地 aria2 wrapper 并完成校验。 |
+| [chinese-formal-documents](skills/chinese-formal-documents/) | `usable` | 创建和检查中文政府公文、合同及协议时，指导 Agent 使用 Typst 与 OfficeCLI 输出经过字体、结构和全页视觉验证的 PDF/DOCX。 |
 | [hosted-ppt](skills/hosted-ppt/) | `wip` | 当用户需要部署、添加演示页或排查 hosted-ppt 平台问题时，指导 Agent 完成本地开发、部署、API 调用和页面验证。 |
 | [initialize-github-repository](skills/initialize-github-repository/) | `usable` | 初始化 GitHub 仓库时，指导 Agent 完成安全检查、部署平台决策、治理文件、Issue/PR 模板、首次 commit 和 push。 |
+| [modern-editorial-documents](skills/modern-editorial-documents/) | `usable` | 创建现代中文报告、方案、白皮书或研究简报时，指导 Agent 使用克制的编辑式设计，并通过 Typst 与 OfficeCLI 输出经过全页验证的 PDF/DOCX。 |
 | [steam-activity](skills/steam-activity/) | `usable` | 当用户询问 Steam 当前状态、最近游玩、游戏库或时长排行时，规范使用本地工具查询并解读结果。 |
 | [weixin-elder-setup](skills/weixin-elder-setup/) | `wip` | 当 Hermes 已安装、主模型和微信已连接后，将其配置为长辈微信助手：辅助模型、SOUL.md 人格、DM 白名单、每日天气 cron。 |
 
